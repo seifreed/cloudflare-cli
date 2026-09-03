@@ -1,0 +1,60 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "cloudflare-multi-cli"
+version = "0.1.0"
+description = "Modern multi-account Cloudflare API client and CLI"
+readme = "README.md"
+requires-python = ">=3.14,<3.15"
+license = "MIT"
+authors = [{name = "Marc Rivero López", email = "mriverolopez@gmail.com"}]
+dependencies = ["defusedxml>=0.7.1"]
+
+[project.urls]
+Homepage = "https://github.com/seifreed/cloudflare-cli"
+Repository = "https://github.com/seifreed/cloudflare-cli"
+Author = "https://github.com/seifreed"
+
+[project.optional-dependencies]
+dev = [
+  "bandit>=1.8",
+  "black>=25.1",
+  "build>=1.2",
+  "mypy>=1.15",
+  "pip-audit>=2.7",
+  "pytest>=8.3",
+  "pytest-cov>=6.0",
+  "ruff>=0.9",
+  "types-defusedxml>=0.7.0",
+]
+
+[project.scripts]
+cloudflare = "cloudflare_cli.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+cloudflare_cli = ["py.typed", "registry.json"]
+
+[tool.black]
+line-length = 88
+target-version = ["py314"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py314"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.mypy]
+python_version = "3.14"
+strict = true
+exclude = "(^|/)venv/"
+
+[tool.pytest.ini_options]
+addopts = "--cov=cloudflare_cli --cov-fail-under=100"
+testpaths = ["tests"]
